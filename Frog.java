@@ -4,7 +4,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Write a description of class Frog here.
  * 
  * @author Nick Bowley 
- * @version 1
+ * @author Piers Watson
+ * @version 1.1
  */
 public class Frog extends Actor
 {
@@ -13,46 +14,54 @@ public class Frog extends Actor
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
     
+    public void checkCollision()
+    {
+        if(isTouching(Fly.class))
+        {
+            removeTouching(Fly.class);
+        
+            flysEaten+=1;
+        
+            MyWorld mw = (MyWorld)getWorld();
+            mw.showText("Score is: " + flysEaten, 70,20);
+        }
+    }
+
+    
     int flysEaten = 0;
+    int turnRate = 4;
+    int turnRateEdge = 20;
+    int jumpDistance = 5;
+    int jumpDelay = 5;
     
     public void act()
     {
-        move(5);
+        if(Greenfoot.isKeyDown("up"))
+        {
+            move(jumpDistance);
+            
+        }
         
-         if (isAtEdge()) 
-   {
-         turn(17);
-    }
+        if (isAtEdge())
+        {
+            turn(turnRateEdge);
+        }
     
-     if (Greenfoot.isKeyDown("left")) 
-   {
-          turn(-4);
-   }
-   if (Greenfoot.isKeyDown("right"))   
-   {
-         turn(4);
-   }
-   { 
-       checkCollision();
-   
-    }
+        if (Greenfoot.isKeyDown("left")) 
+        {
+            turn(-turnRate);
+        }
+        
+        if (Greenfoot.isKeyDown("right"))   
+        {
+            turn(turnRate);
+        }
+        
+        checkCollision();
+    }        
 }   
    
 
-        public void checkCollision()
-         {
-                if(isTouching(Fly.class))
-               {
-                      removeTouching(Fly.class);
-                      
-                      flysEaten+=1;
-                      MyWorld mw = (MyWorld)getWorld();
-                      mw.showText("Score is: " + flysEaten, 70,20);
-                    }
-                    
-                }      
-                
-            }
                     
                  
                 
