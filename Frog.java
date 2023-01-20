@@ -1,7 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Frog here.
+ * the Frog class is the player's character. They can move and eat flies.
  * 
  * @author Nick Bowley 
  * @author Piers Watson
@@ -9,44 +9,73 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Frog extends Actor
 {
-    /**
-     * Act - do whatever the Frog wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
-     */
+    
+    int flysEaten = 0;
+    int turnRate = 4;
+    int turnRateEdge = 20;
+    int jumpDistance = 100;
+    int jumpDelay = 0;
+    int energy = 0;
+    int maxEnergy = 5;
     
     public void checkCollision()
     {
         if(isTouching(Fly.class))
         {
+            
             removeTouching(Fly.class);
         
-            flysEaten+=1;
+            flysEaten +=1;
         
             MyWorld mw = (MyWorld)getWorld();
             mw.showText("Score is: " + flysEaten, 70,20);
-        }
-    }
-
-    
-    int flysEaten = 0;
-    int turnRate = 4;
-    int turnRateEdge = 20;
-    int jumpDistance = 5;
-    int jumpDelay = 5;
-    
-    public void act()
-    {
-        if(Greenfoot.isKeyDown("up"))
-        {
-            move(jumpDistance);
             
         }
         
+        if(isTouching(Firefly.class))
+            {
+                if(energy < maxEnergy)
+                {
+                    energy += 1;
+                }
+                
+                removeTouching(Firefly.class);
+                
+                flysEaten += 1;
+                
+                MyWorld mw = (MyWorld)getWorld();
+                mw.showText("Energy: " + energy + "/" + maxEnergy, 600, 20);
+            }
+        
+        if(isTouching(Lizard.class))
+        {
+            
+        }
+    }
+    
+    public void act()
+    {
+        //this if condition allows the jump delay to tick down.
+        if(jumpDelay > 0)
+        {
+            --jumpDelay;
+        }
+        
+        //this one allows the player to 'jump' if the delay is zero.
+        if(Greenfoot.isKeyDown("up") & (jumpDelay==0))
+        {
+            move(jumpDistance);
+            jumpDelay = 20;
+        }
+        
+        //this one is supposed to make you turn around at the edge, 
+        //but we'll probably have to adapt that to killing the frog.
         if (isAtEdge())
         {
             turn(turnRateEdge);
         }
-    
+        
+        //then here we have the controls for turning the frog left and right.
         if (Greenfoot.isKeyDown("left")) 
         {
             turn(-turnRate);
@@ -61,22 +90,3 @@ public class Frog extends Actor
     }        
 }   
    
-
-                    
-                 
-                
-                
-        
-        
-    
-                    
-                
-            
-                    
-                
-               
-          
-        
-    
-    
-
