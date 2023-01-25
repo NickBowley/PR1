@@ -9,15 +9,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Fly extends Actor
 {
     /**
-     * Act - do whatever the Fly wants to do. This method is called whenever
-     * the 'Act' or 'Run' button gets pressed in the environment.
+     * Act - The below method makes the flies move around the game randomly,
+     * turing when they hit the egde of the screen.
+     * 
      */
     public void act()
     
-{
-public void moveAround()
-    
-    {
+    { 
         move(4);
     if (Greenfoot.getRandomNumber(100) <10)
     
@@ -38,10 +36,7 @@ public void moveAround()
     
   
                }
-  
-               }
           }
-
 
 
   
