@@ -1,4 +1,4 @@
- import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
+import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
  * the Frog class is the player's character. They can move and eat flies.
@@ -31,23 +31,22 @@ public class Player extends Actor
             mw.showText("Score is: " + flysEaten, 70,20);
             
         }
-            if(isTouching(Firefly.class))
-            {
             
                 
-                removeTouching(Firefly.class);
-                
-                fireFliesEaten +=5;
-                
-                MyWorld mw= (MyWorld)getWorld();
-                mw.showText("Score is: " + fireFliesEaten, 70,20);
-                
-            }
+            
         
        
         
         
         
+    }
+    
+    public void checkFireflyCollision()
+    
+    {
+        if(isTouching(Firefly.class))
+        removeTouching(Firefly.class);
+        flysEaten +=1;
     }
     
     public void act()
@@ -84,8 +83,10 @@ public class Player extends Actor
         }
         
         checkCollision();
+        
+        checkFireflyCollision();
     }        
-}  
+}   
 
                     
                  
