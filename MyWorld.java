@@ -11,12 +11,16 @@ public class MyWorld extends World
 {
     
     
-    
+    private int score = 0;
     int worldSizeX = 700;
     int worldSizeY = 500;
     
-     public int a = 0;
-    private int threshold = 100;
+    public int a = 0;
+    private int threshold = 50;
+    Color[] colors = { Color.ORANGE, Color.RED };
+    int colorNum = 0;
+    int counter = 1;
+
     
     
     /**
@@ -34,7 +38,25 @@ public class MyWorld extends World
         
         
         
+        
+        
     }
+        
+    
+    public void increaseScore (int amount)
+    {
+        score+=amount;
+        showText("Score is: " + score, 70,20);
+        
+          if (score==5)
+        {
+        showText("CONGRATULATIONS, YOU'VE WON: " + score, 300, 300);
+        Greenfoot.stop();
+    }
+        
+    }
+  
+    
     
     /**
      * This method will be for spawning Flies. It grabs a random co-ordinate (10 steps away from the edges), then spawns a fly there.
@@ -45,7 +67,7 @@ public class MyWorld extends World
         int flyY = Greenfoot.getRandomNumber(worldSizeY - 20) + 10;
         addObject(new Fly(), flyX, flyY); 
     }
-        public void act()
+               public void act()
         
         {
             a++;
@@ -55,6 +77,8 @@ public class MyWorld extends World
             a = 0;
         }
     }
+    
+
         public void RandomThingMethod()
     {
         int z = Greenfoot.getRandomNumber(10);
@@ -64,7 +88,9 @@ public class MyWorld extends World
         if(z == 1)
             addObject(new Firefly(),x,y); 
     }
-        
+    
+    
+       
     /**
      * Prepare the world for the start of the program.
      * That is: create the initial objects and add them to the world.
@@ -82,15 +108,5 @@ public class MyWorld extends World
         
         addObject(new Lizard(), 100,200);
     }
-    public void gameOver()
-{
-    removeObjects(getObjects(Actor.class)); // remove all actors from world
-    GreenfootImage bg = getBackground(); // get reference to background image
-    bg.setColor(Color.BLACK); // set drawing color to black for 'bg' image
-    bg.fill(); // fills 'bg' image with the currently set drawing color
-    GreenfootImage txtImg = new GreenfootImage("GAME\nOVER", 80, Color.WHITE, Color.BLACK); // create "GAME OVER" text image
-    bg.drawImage(txtImg, (bg.getWidth()-txtImg.getWidth())/2, (bg.getHeight()-txtImg.getHeight())/2); // draw text centered onto 'bg' image
-    Greenfoot.stop(); // stop the scenario
-}
 
 }
