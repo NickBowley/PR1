@@ -30,6 +30,7 @@ public class Lizard extends Actor
         goTo();
         checkPlayerCollision();
         
+        
     
     } 
 
@@ -40,7 +41,7 @@ public class Lizard extends Actor
         int PlayerX = player.getX();
         int PlayerY = player.getY();
         turnTowards(PlayerX,PlayerY);
-        move(2);
+        move(1);
         
         
     }
@@ -52,6 +53,7 @@ public class Lizard extends Actor
         {
         removeTouching(Player.class);
         updateImage();
+        Greenfoot.stop();
             
         }
             
@@ -69,7 +71,6 @@ public class Lizard extends Actor
         
     
 }
-
 
 
 
