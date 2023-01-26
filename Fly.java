@@ -16,7 +16,7 @@ public class Fly extends Actor
     public void act()
     
     { 
-        move(4);
+        move(2);
     if (Greenfoot.getRandomNumber(100) <10)
     
     {
@@ -37,6 +37,5 @@ public class Fly extends Actor
   
                }
           }
-
 
   
