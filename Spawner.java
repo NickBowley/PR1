@@ -4,15 +4,20 @@ import java.util.List;
 /**
  * Write a description of class spawner here.
  * 
- * @author (your name) 
+ * @author Nick Bowley
+ * @author Piers Watson
  * @version (a version number or a date)
  */
+
+
+//NOTE: this entire class has been made redundant by a single method in MyWorld. As such, it has been retained exclusively for documentation purposes.
+
+
 public class Spawner extends Actor
 {
-    //this maximum doesnt include the frog or the spawner.
+    //this maximum doesnt include the frog, the lizard or the spawner.
     int maxObjects = 5;
     
-    int lizardTimer = 1000;
     
     /**
      * Act - do whatever the spawner wants to do. This method is called whenever
@@ -25,16 +30,15 @@ public class Spawner extends Actor
         int mwSizeX = mw.getWidth();
         int mwSizeY = mw.getHeight();
         
-        int objectCount = mw.numberOfObjects() - 2;
+        int objectCount = mw.numberOfObjects() - 3;
         
-        //this conditional statement will count down from 1000 to 0, then spawn the lizard.
-        if(lizardTimer <= 0)
+        
+        if((luckyNumber > 950) & (objectCount < maxObjects))
         {
-            mw.addObject(new Lizard(), 600, 400);
-        } else {
-            lizardTimer -= 1;
+            int flyX = Greenfoot.getRandomNumber(mwSizeX - 20) + 10;
+            int flyY = Greenfoot.getRandomNumber(mwSizeY - 20) + 10;
+            mw.addObject(new Firefly(), flyX, flyY); 
         }
-        
         if((luckyNumber < 100) & (objectCount < maxObjects))
         {
             int flyX = Greenfoot.getRandomNumber(mwSizeX - 20) + 10;
@@ -42,5 +46,9 @@ public class Spawner extends Actor
             mw.addObject(new Fly(), flyX, flyY); 
             
         }
+        
+        
+        
+        
     }
 }

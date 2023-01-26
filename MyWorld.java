@@ -5,19 +5,25 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * 
  * @author Nick Bowley
  * @author Piers Watson
- * @version 1.1
+ * @version P.26/01/23
  */
+
+//Heya, These // comments
 public class MyWorld extends World
 {
     
     
     private int score = 0;
+    int winCondition = 10;
     int worldSizeX = 700;
     int worldSizeY = 500;
     
-    public int a = 0;
+    int maxObjects = 5;
+    
+    public int a = 0; //can't help but wonder why this variable is just called 'a'
     private int threshold = 50;
-    Color[] colors = { Color.ORANGE, Color.RED };
+    
+    Color[] colors = { Color.ORANGE, Color.RED }; 
     int colorNum = 0;
     int counter = 1;
 
@@ -35,10 +41,8 @@ public class MyWorld extends World
         
         prepare();
         
-        
-        
-        
-        
+        act();
+
         
     }
         
@@ -48,29 +52,48 @@ public class MyWorld extends World
         score+=amount;
         showText("Score is: " + score, 70,20);
         
-          if (score==5)
+        if (score>=winCondition)
         {
-        showText("CONGRATULATIONS, YOU'VE WON: " + score, 300, 300);
-        Greenfoot.stop();
-    }
+            showText("CONGRATULATIONS, YOU'VE WON: " + score, 300, 300);
+            Greenfoot.stop();
+        }
         
     }
   
     
     
-    /**
-     * This method will be for spawning Flies. It grabs a random co-ordinate (10 steps away from the edges), then spawns a fly there.
+    /*
+     * I've commented out this method, as the RandomThingMethod() has made it redundant.
      */
-    private void flySpawner()
-    {
-        int flyX = Greenfoot.getRandomNumber(worldSizeX - 20) + 10;
-        int flyY = Greenfoot.getRandomNumber(worldSizeY - 20) + 10;
-        addObject(new Fly(), flyX, flyY); 
-    }
-               public void act()
+    //private void flySpawner()
+    //{
+    //    int luckyNumber = Greenfoot.getRandomNumber(1000);
+    //    int mwSizeX = getWidth();
+    //    int mwSizeY = getHeight();
+    //    
+    //    int objectCount = numberOfObjects() - 3;
+    //    
+    //    
+    //    if((luckyNumber > 950) & (objectCount < maxObjects))
+    //    {
+    //        int flyX = Greenfoot.getRandomNumber(mwSizeX - 20) + 10;
+    //        int flyY = Greenfoot.getRandomNumber(mwSizeY - 20) + 10;
+    //        addObject(new Firefly(), flyX, flyY); 
+    //    }
+    //    if((luckyNumber < 100) & (objectCount < maxObjects))
+    //    {
+    //        int flyX = Greenfoot.getRandomNumber(mwSizeX - 20) + 10;
+    //        int flyY = Greenfoot.getRandomNumber(mwSizeY - 20) + 10;
+    //        addObject(new Fly(), flyX, flyY); 
+    //        
+    //    } 
+    //}
+    
+    public void act()
         
-        {
-            a++;
+    {
+        a++;
+        
         if(a == threshold)
         {
             RandomThingMethod();
@@ -79,14 +102,34 @@ public class MyWorld extends World
     }
     
 
-        public void RandomThingMethod()
+    public void RandomThingMethod()
     {
-        int z = Greenfoot.getRandomNumber(10);
-        int x = Greenfoot.getRandomNumber(getWidth());
-        int y = Greenfoot.getRandomNumber(getHeight());
+        
+        //love this method, as it can completely replace the 'spawner' actor.
+        //just made a few little tweaks to the numbers to let it spawn flies more often than fireflies, and to stop it from spawning too many.
+        
+        int objectCount = numberOfObjects() - 2; //the two being subtracted are the Player and the Lizard
+        
+        int z = Greenfoot.getRandomNumber(100);
+        int x = Greenfoot.getRandomNumber(getWidth() - 20) + 10;
+        int y = Greenfoot.getRandomNumber(getHeight() - 20) + 10;
  
-        if(z == 1)
-            addObject(new Firefly(),x,y); 
+        
+        //flies have (roughly) a 10% chance of spawning, Fireflies are at 5%.
+        //it won't spawn both at the same time, and it won't spawn either if there's 5 bugs already on screen.
+        
+        if(objectCount < maxObjects)
+        {
+            if(z >= 90)
+            {
+                addObject(new Fly(), x, y);
+            }
+        
+            if(z <= 5)
+            {
+                addObject(new Firefly(), x, y); 
+            }
+        }
     }
     
     
@@ -102,11 +145,14 @@ public class MyWorld extends World
         
         while (prepareFliesLoop > 0)
         {
-            flySpawner();
+            int flyX = Greenfoot.getRandomNumber(worldSizeX - 20) + 10;
+            int flyY = Greenfoot.getRandomNumber(worldSizeY - 20) + 10;
+            addObject(new Fly(), flyX, flyY); 
+            
             --prepareFliesLoop;
         }
         
-        addObject(new Lizard(), 100,200);
+        addObject(new Lizard(), 300,300);
     }
 
 }
