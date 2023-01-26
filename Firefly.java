@@ -15,7 +15,7 @@ public class Firefly extends Fly
     public void act()
     {
         // Add your action code here.{ 
-        move(4);
+        move(3);
     if (Greenfoot.getRandomNumber(100) <10)
     
     {
