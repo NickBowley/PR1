@@ -1,5 +1,4 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
-
 /**
  * Write a description of class Fly here.
  * 
@@ -10,17 +9,17 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Fly extends Actor
 {
     int anim = 1;
-    
+
     /**
      * Act - The below method makes the flies move around the game randomly,
      * turing when they hit the egde of the screen.
      * 
      */
-    
-    
-    
+
+
+
     public void act()
-    
+
     { 
         move(2);
         anim -= 1;
@@ -35,24 +34,24 @@ public class Fly extends Actor
         {
             this.setImage("Fly1.png");
         }
-        
+
         if (Greenfoot.getRandomNumber(100) <10)
-    
+
         {
             turn(Greenfoot.getRandomNumber(90) - 45);
         }
-    
+
         if (getX() <= 5 || getX() >= getWorld().getWidth() - 5)
-    
+
         {
             turn(180);
         }
-    
+
         if (getY() <= 5 || getY() >= getWorld().getHeight() - 5)    
         {
             turn(180);
         }
-    
-  
+
+
     }
 }
